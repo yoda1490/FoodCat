@@ -4,7 +4,6 @@
 #include "ntp.h"
 #include "action.h"
 #include "handlers.h"
-#include <HashLib.h> // Add this include
 
 WiFiManager wifiManager;
 #ifdef WEBSSL
@@ -88,74 +87,18 @@ String generateHash(String login, String password){
     return ESP8266WebServer::credentialHash(login, STR_REALM, password);
 }
 
-// Hash password with SHA-256
-String hashPassword(const String& password) {
-    SHA256 sha256;
-    sha256.doUpdate((const uint8_t*)password.c_str(), password.length());
-    uint8_t hash[32];
-    sha256.doFinal(hash);
-    String hashStr = "";
-    for (int i = 0; i < 32; i++) {
-        if (hash[i] < 16) hashStr += "0";
-        hashStr += String(hash[i], HEX);
-    }
-    return hashStr;
-}
-
 
 
 bool session_authenticated() {
-  if (!server.hasHeader("Authorization")) {
-    server.requestAuthentication(BASIC_AUTH, STR_REALM, STR_AUTH_FAILED);
-    logActions(String(mySettings.login) + " authentication request.");
-    return false;
-  }
-
-  String authHeader = server.header("Authorization");
-  if (!authHeader.startsWith("Basic ")) {
-    server.requestAuthentication(BASIC_AUTH, STR_REALM, STR_AUTH_FAILED);
-    logActions(String(mySettings.login) + " authentication request.");
-    return false;
-  }
-
-  // Decode base64 credentials
-  String encoded = authHeader.substring(6);
-  encoded.trim();
-  String decoded = "";
-  decoded.reserve(128);
-  int len = encoded.length() * 3 / 4 + 1;
-  char decodedArr[len];
-  int decodedLen = decode_base64((const unsigned char*)encoded.c_str(), encoded.length(), (unsigned char*)decodedArr);
-  decodedArr[decodedLen] = '\0';
-  decoded = String(decodedArr);
-
-  int sep = decoded.indexOf(':');
-  if (sep < 0) {
-    server.requestAuthentication(BASIC_AUTH, STR_REALM, STR_AUTH_FAILED);
-    logActions(String(mySettings.login) + " authentication request.");
-    return false;
-  }
-
-  String user = decoded.substring(0, sep);
-  String pass = decoded.substring(sep + 1);
-
-  String inputHash = hashPassword(pass);
-
-  if (user == String(mySettings.login) && inputHash == String(mySettings.hash)) {
-    // Success, optionally reset rate limit counter here
+  //if (server.authenticateDigest(mySettings.login, mySettings.hash)) {
+  if (server.authenticate(mySettings.login, mySettings.password)) {
     return true;
   } else {
-    // Optionally increment rate limit counter here
+    //server.requestAuthentication(DIGEST_AUTH, STR_REALM, STR_AUTH_FAILED);
     server.requestAuthentication(BASIC_AUTH, STR_REALM, STR_AUTH_FAILED);
     logActions(String(mySettings.login) + " authentication request.");
     return false;
   }
-}
-
-// Helper function for base64 decoding
-#include <base64.h>
-int decode_base64(const unsigned char* input, int length, unsigned char* output) {
-  return decode_base64((char*)input, length, (char*)output);
 }
 
 
