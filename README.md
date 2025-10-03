@@ -27,8 +27,8 @@ A WiFi-enabled automatic cat feeder based on the ESP8266 (esp12e), featuring a w
 ### 1. Clone the Repository
 
 ```sh
-git clone https://github.com/yourusername/esp8266-catfeeder.git
-cd esp8266-catfeeder
+git clone [https://github.com/yourusername/esp8266-catfeeder.git](https://github.com/yoda1490/FoodCat)
+cd FoodCat
 ```
 
 ### 2. PlatformIO Setup
@@ -76,5 +76,6 @@ platformio.ini
 This project is licensed under the [MIT License](LICENSE).
 
 ---
+
 
 **Contributions welcome!**
