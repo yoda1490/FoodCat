@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="/static/cat.css">
+    <script type="text/javascript" src="/static/jquery.js"></script>
+    <script type="text/javascript" src="/static/cat.js"></script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128573;</text></svg>">
+    <!--<link rel="stylesheet" href="cat.css">
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="cat.js"></script>-->
+</head>
+
+<body>
+
+    <div  class="main-nav">
+        <div>
+            <a href="index.html" class="logo">
+                <!--<div><img src="static/cat.png" alt="Meow !"></div>-->
+                <div class="title">&#128008; Meow !</div>
+            </a>
+        </div>  
+            <ul class="nav">
+                <li class="scroll-to-section"><a href="#home" class="active">Home</a></li>
+                <li class="scroll-to-section"><a href="#settings">Settings</a></li>
+                <li class="scroll-to-section"><a href="#infos">Infos</a></li>
+            </ul>
+    </div>
+
+    <div class="box" id="home">
+        <h2>Actions <div class="spinnerActions"><div class="spinner"></div></div></h2>
+        <div id="blockActions">
+            <button class="button" id="buttonMotory" onclick="buttonPress('feed')">Feed &#129379;</button><br />
+            <button class="button" id="buttonPlay" onclick="buttonPress('play')">Play record &#9654; </button>
+        </div>
+        <div id="blockSchedules">
+            <h2>Schedules</h2>
+            <form id="schedules"></form>
+        </div>
+    </div>
+    <div class="box" id="settings">
+        <h2>Settings <div class="spinnerSettings"><div class="spinner"></div></div></h2>
+        <a href="/logs" target="_blank">Read logs</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button onclick="buttonPress('clearlogs')">Clear logs</button>
+        <br/><br/>
+        <form id="settingsForm" action="#" onsubmit="setAuth(); return false;">
+            <label>Login: 
+                <input type="text" pattern="[a-zA-Z_]{5,100}" name="login" value="" />
+            </label><br />
+            <label>Password: 
+                <input type="text" pattern=".{5,100}" required name="password" value="" />
+            </label><br />
+            <input type="submit" value="Save"/>
+        </form>
+        <br />
+        <label>Feed time:
+            <input type="number" id="feedTime" name="feedTime" onchange="setFeedTime($(this).val());" min="1" max="9" value="" />
+        </label><br />
+        <label>Status LED:
+            <input type="checkbox" id="ledStatus" name="ledStatus" onchange="setLed($(this).is(':checked'));" />
+        </label><br /><br/>
+        
+        <form id="settingsForm" action="#" onsubmit="setNtp(); return false;"></form>
+            <label>Timezone: 
+                <input type="text" title="List available here" value="" name="timezone" id="timezone" />
+            </label><br />
+            <label>NTP server:
+                <input type="text" value="" name="ntpServer" id="ntpServer" />
+            </label><br/>
+            <input type="submit" value="Save"/>
+        </form>
+    </div>
+    <div class="box" id="infos">
+        <h2>Infos</h2>
+        <ul>
+            <li>SSID: <span class="status SSID"></span></li>
+            <li>Signal: <span class="status Signal"></span></li>
+            <li>IP: <span class="status IP"></span></li>
+            <li>Heap: <span class="status heap"></span>k</li>
+            <li>VCC: <span class="status vcc"></span>mV</li>
+            <li>FS: <span class="status fsOcc"></span>/<span class="status fsSize"></span></li>
+            <li><button onclick="reboot();">Reboot</button></li>
+        </ul>
+    </div>
+    <div id="blockDate">
+        <h2><span class="status date"></span> <span class="status time"></span></h2>
+    </div>
+    <div class="spinner spinnerGlobal"></div>
+</body>
+<script>
+    $('input[name="ledStatus"]').prop("indeterminate", true);
+    initApp();
+</script>
+</html>

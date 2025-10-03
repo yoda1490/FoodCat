@@ -1,0 +1,144 @@
+html {
+    font-family: Helvetica;
+    display: inline-block;
+    margin: 0px auto;
+    text-align: center;
+    /**background: rgb(34,195,191);
+    background: linear-gradient(41deg, #051039 0%, #051039 100%);**/
+}
+
+body {
+    margin: 0px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.box{
+    border: 1px solid grey;
+    padding: 20px 24px;
+    border-radius: 10px;
+    width: 500px;
+    margin: 10px auto;
+}
+
+.main-nav>div {
+    margin: 0px;
+    height: 55px;
+    width: 100%;
+}
+
+.main-nav .logo div{
+    height: 55px;
+    padding: 0px;;
+    display: inline-block;
+}
+
+.main-nav .nav {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: flex-end;
+	align-content: stretch;
+    margin-top: 30px;
+    margin-right: 0px;
+}
+
+.main-nav .nav li {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.main-nav .menu{
+    width: 100%;
+}
+
+ul,
+li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.main-nav a.logo {
+    color: black;
+    font-size: 3.5em;
+}
+
+.main-nav .logo img {
+    height: 50px;
+    position: relative;
+    top: 10px;
+}
+
+
+.main-nav .nav li a {
+    display: block;
+    font-weight: 500;
+    font-size: 15px;
+    color: #2a2a2a;
+    text-transform: capitalize;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+    height: 40px;
+    line-height: 40px;
+    border: transparent;
+    letter-spacing: 1px;
+}
+
+.button {
+    background-color: #195B6A;
+    border: none;
+    color: white;
+    padding: 16px 40px;
+    text-decoration: none;
+    font-size: 30px;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.button2 {
+    background-color: #77878A;
+}
+
+#blockDate{
+    position: fixed;
+    bottom: 0px;
+    right: 60px;
+    margin-bottom: -20px;
+}
+
+/**
+Spinner
+**/
+.spinner {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: radial-gradient(farthest-side, #195B6A 94%, #0000) top/9px 9px no-repeat,
+        conic-gradient(#0000 30%, #195B6A);
+    mask: radial-gradient(farthest-side, #0000 calc(100% - 9px), #000 0);
+    animation: spinner-c7wet2 1s infinite linear;
+}
+
+.spinnerActions, .spinnerSettings{
+    display: inline-block;
+}
+
+.spinnerGlobal{
+        bottom: 0px;
+        position: fixed;
+        right: 0px;
+}
+
+@keyframes spinner-c7wet2 {
+    100% {
+        transform: rotate(1turn);
+    }
+}
